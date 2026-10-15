@@ -1,253 +1,100 @@
-import {
-  FaPhoneAlt,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaWhatsapp,
-  FaArrowUp,
-  FaCarSide,
-} from "react-icons/fa";
+import { FaArrowUp, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
-import logo from "../assets/logo.png";
 import footerBg from "../assets/footer-pattern.png";
+import { formatPhone, mailHref, site, telHref, whatsappHref } from "../config/site";
+import { navLinks, services } from "../data/content";
+import Button from "./ui/Button";
+import Logo from "./ui/Logo";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#030712]">
+    <footer className="relative overflow-hidden border-t border-line bg-ink">
+      <img src={footerBg} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/95 to-ink/90" />
 
-      {/* Background */}
-
-      <img
-        src={footerBg}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-10"
-      />
-
-      <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/95 to-[#030712]/90"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6 py-20">
-
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12">
-
-          {/* Company */}
-
+      <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr_1.5fr]">
           <div>
-
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-20 mb-6"
-            />
-
-            <p className="text-gray-400 leading-8">
-
-              Shri Balaji Faridabad Cab Service provides
-              premium taxi services including
-              Local Rides,
-              Airport Pickup & Drop,
-              Delhi NCR,
-              Outstation Travel,
-              and All India Permit journeys.
-
-            </p>
-
-            <a
-              href="https://wa.me/919229129633"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-3 mt-8 bg-green-500 hover:bg-green-600 px-6 py-3 rounded-full font-semibold text-white transition hover:scale-105"
-            >
-              <FaWhatsapp />
-              WhatsApp
-            </a>
-
+            <Logo size="lg" />
+            <p className="mt-6 leading-7 text-gray-400">{site.description}</p>
+            <Button href={whatsappHref()} variant="whatsapp" icon={FaWhatsapp} className="mt-6">
+              Chat on WhatsApp
+            </Button>
           </div>
 
-          {/* Quick Links */}
+          <FooterColumn title="Quick Links">
+            {navLinks.map((link) => (
+              <FooterLink key={link.id} href={`#${link.id}`}>
+                {link.title}
+              </FooterLink>
+            ))}
+          </FooterColumn>
 
-          <div>
+          <FooterColumn title="Our Services">
+            {services.map((service) => (
+              <FooterLink key={service.title} href="#services">
+                {service.title}
+              </FooterLink>
+            ))}
+          </FooterColumn>
 
-            <h3 className="text-white text-2xl font-bold mb-7">
-              Quick Links
-            </h3>
-
-            <FooterLink href="#home">Home</FooterLink>
-            <FooterLink href="#services">Services</FooterLink>
-            <FooterLink href="#fleet">Fleet</FooterLink>
-            <FooterLink href="#contact">Contact</FooterLink>
-
-          </div>
-
-          {/* Services */}
-
-          <div>
-
-            <h3 className="text-white text-2xl font-bold mb-7">
-              Our Services
-            </h3>
-
-            <FooterItem>Airport Pickup & Drop</FooterItem>
-            <FooterItem>Local City Travel</FooterItem>
-            <FooterItem>Delhi NCR Cab</FooterItem>
-            <FooterItem>Outstation Trips</FooterItem>
-            <FooterItem>All India Permit</FooterItem>
-
-          </div>
-
-          {/* Contact */}
-
-          <div>
-
-            <h3 className="text-white text-2xl font-bold mb-7">
-              Contact Info
-            </h3>
-
-            <ContactItem
-              icon={<FaPhoneAlt />}
-              text="+91 9229129633"
-            />
-
-            <ContactItem
-              icon={<FaPhoneAlt />}
-              text="+91 8383043915"
-            />
-
-            <ContactItem
-              icon={<FaEnvelope />}
-              text="shribalajicabservices.fbd@gmail.com"
-            />
-
-            <ContactItem
-              icon={<FaMapMarkerAlt />}
-              text="Faridabad • Delhi NCR • All India"
-            />
-
-          </div>
-
+          <FooterColumn title="Contact Info">
+            {site.phones.map((phone) => (
+              <FooterLink key={phone} href={telHref(phone)} icon={FaPhoneAlt}>
+                {formatPhone(phone)}
+              </FooterLink>
+            ))}
+            <FooterLink href={mailHref(site.emails.main)} icon={FaEnvelope}>
+              {site.emails.main}
+            </FooterLink>
+            <li className="flex items-start gap-3 text-gray-400">
+              <FaMapMarkerAlt className="mt-1.5 shrink-0 text-brand-light" aria-hidden="true" />
+              {site.serviceArea}
+            </li>
+          </FooterColumn>
         </div>
 
-        {/* Divider */}
-
-        <div className="border-t border-yellow-500/20 my-14"></div>
-
-        {/* Bottom */}
-
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
-
+        <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-line pt-8 text-center text-sm text-gray-500 md:flex-row md:text-left">
           <div>
-
-            <p className="text-gray-400 text-center lg:text-left">
-
-              © {new Date().getFullYear()} Shri Balaji Faridabad Cab Service.
-
-              All Rights Reserved.
-
+            <p>
+              © {new Date().getFullYear()} {site.name}. All Rights Reserved.
             </p>
-
-            <p className="text-sm text-gray-500 mt-3 text-center lg:text-left">
-
-              Designed & Developed with ❤️ by
-
-              <span className="text-yellow-400 font-semibold">
-                {" "}Rajan Kumar
-              </span>
-
-              {" "}(@the_rajan_thakur)
-
+            <p className="mt-1">
+              Designed &amp; Developed by{" "}
+              <span className="font-semibold text-brand-light">{site.developer.name}</span> ({site.developer.handle})
             </p>
-
           </div>
 
-          {/* Developer Card */}
-
-          <div className="bg-[#111827] border border-yellow-500/20 rounded-2xl px-8 py-5 flex items-center gap-5">
-
-            <div className="w-14 h-14 rounded-full bg-yellow-500 flex items-center justify-center text-black text-2xl">
-
-              <FaCarSide />
-
-            </div>
-
-            <div>
-
-              <h4 className="text-white font-bold">
-
-                Built using React.js
-
-              </h4>
-
-              <p className="text-gray-400 text-sm">
-
-                Crafted with Performance & Modern UI
-
-              </p>
-
-            </div>
-
-          </div>
-
-          {/* Scroll Button */}
-
-          <button
-            onClick={() =>
-              window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-              })
-            }
-            className="w-14 h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 text-black flex items-center justify-center transition hover:-translate-y-1"
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Back to top"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <FaArrowUp />
-          </button>
-
+            <FaArrowUp aria-hidden="true" />
+          </Button>
         </div>
-
       </div>
-
     </footer>
   );
 }
 
-function FooterLink({ href, children }) {
+function FooterColumn({ title, children }) {
   return (
-    <a
-      href={href}
-      className="block text-gray-400 hover:text-yellow-400 transition mb-4"
-    >
-      {children}
-    </a>
+    <div>
+      <h3 className="mb-6 text-lg font-bold text-white">{title}</h3>
+      <ul className="space-y-3">{children}</ul>
+    </div>
   );
 }
 
-function FooterItem({ children }) {
+function FooterLink({ href, icon: Icon, children }) {
   return (
-    <div className="flex items-center gap-3 mb-4">
-
-      <span className="text-yellow-400">✔</span>
-
-      <span className="text-gray-400">
+    <li>
+      <a href={href} className="flex items-start gap-3 break-words text-gray-400 transition hover:text-brand-light">
+        {Icon && <Icon className="mt-1.5 shrink-0 text-brand-light" aria-hidden="true" />}
         {children}
-      </span>
-
-    </div>
-  );
-}
-
-function ContactItem({ icon, text }) {
-  return (
-    <div className="flex items-start gap-4 mb-5">
-
-      <div className="text-yellow-400 mt-1">
-
-        {icon}
-
-      </div>
-
-      <span className="text-gray-400 leading-7">
-
-        {text}
-
-      </span>
-
-    </div>
+      </a>
+    </li>
   );
 }

@@ -1,264 +1,76 @@
-// import { motion } from "framer-motion";
-// import {
-//   FaPhoneAlt,
-//   FaWhatsapp,
-//   FaMapMarkerAlt,
-//   FaPlaneDeparture,
-//   FaShieldAlt,
-//   FaClock,
-// } from "react-icons/fa";
-
-// import heroCar from "../assets/hero-car.png";
-// import heroBg from "../assets/hero-bg-pattern.png";
-
-// export default function Hero() {
-//   return (
-//     <section
-//       id="home"
-//       className="relative min-h-screen overflow-hidden bg-[#050816]"
-//     >
-//       {/* Background Pattern */}
-
-//       <img
-//         src={heroBg}
-//         alt=""
-//         className="absolute inset-0 w-full h-full object-cover opacity-20"
-//       />
-
-//       {/* Overlay */}
-
-//       <div className="absolute inset-0 bg-gradient-to-r from-[#050816]/95 via-[#050816]/85 to-transparent" />
-
-//       <div className="relative max-w-7xl mx-auto px-6 pt-32 pb-20 grid lg:grid-cols-2 items-center gap-16">
-
-//         {/* LEFT */}
-
-//         <motion.div
-//           initial={{ opacity: 0, x: -70 }}
-//           animate={{ opacity: 1, x: 0 }}
-//           transition={{ duration: .8 }}
-//         >
-
-//           <span className="inline-block bg-yellow-500 text-black font-semibold px-5 py-2 rounded-full">
-
-//             🚖 Trusted Cab Service
-
-//           </span>
-
-//           <h1 className="mt-8 text-6xl lg:text-7xl font-black leading-tight text-white">
-
-//             Safe & Reliable
-
-//             <span className="text-yellow-400">
-
-//               {" "}Cab Service
-
-//             </span>
-
-//             <br />
-
-//             Across India
-
-//           </h1>
-
-//           <p className="mt-8 text-gray-300 text-lg leading-8 max-w-xl">
-
-//             Experience premium travel with
-//             Shri Balaji Faridabad Cab Service.
-
-//             Airport Pickup,
-//             Local Rides,
-//             Delhi NCR,
-//             Outstation Trips,
-//             and All India Permit.
-
-//           </p>
-
-//           <div className="flex flex-wrap gap-5 mt-10">
-
-//             <a
-//               href="tel:9229129633"
-//               className="bg-yellow-500 text-black px-8 py-4 rounded-full font-semibold flex items-center gap-3 hover:scale-105 duration-300"
-//             >
-//               <FaPhoneAlt />
-
-//               Call Now
-
-//             </a>
-
-//             <a
-//               href="https://wa.me/919229129633"
-//               target="_blank"
-//               rel="noreferrer"
-//               className="border border-green-500 text-green-400 px-8 py-4 rounded-full font-semibold flex items-center gap-3 hover:bg-green-500 hover:text-white duration-300"
-//             >
-//               <FaWhatsapp />
-
-//               WhatsApp
-
-//             </a>
-
-//           </div>
-
-//           <div className="grid grid-cols-2 gap-6 mt-14">
-
-//             <Feature
-//               icon={<FaMapMarkerAlt />}
-//               text="All India Permit"
-//             />
-
-//             <Feature
-//               icon={<FaPlaneDeparture />}
-//               text="Airport Pickup"
-//             />
-
-//             <Feature
-//               icon={<FaClock />}
-//               text="24 × 7 Service"
-//             />
-
-//             <Feature
-//               icon={<FaShieldAlt />}
-//               text="Safe Journey"
-//             />
-
-//           </div>
-
-//         </motion.div>
-
-//         {/* RIGHT */}
-
-//         <motion.div
-//           initial={{ opacity: 0, x: 80 }}
-//           animate={{ opacity: 1, x: 0 }}
-//           transition={{ duration: .9 }}
-//           className="relative"
-//         >
-
-//           <img
-//             src={heroCar}
-//             alt="Cab"
-//             className="w-full hover:scale-105 duration-700"
-//           />
-
-//         </motion.div>
-
-//       </div>
-
-//     </section>
-//   );
-// }
-
-// function Feature({ icon, text }) {
-//   return (
-//     <div className="flex items-center gap-3">
-
-//       <div className="text-yellow-400 text-xl">
-
-//         {icon}
-
-//       </div>
-
-//       <span className="text-gray-300">
-
-//         {text}
-
-//       </span>
-
-//     </div>
-//   );
-// }
-// export default function Hero() {
-//   return (
-//     <section className="min-h-screen flex items-center justify-center bg-black text-white">
-//       <h1 className="text-5xl font-bold">Hero Working ✅</h1>
-//     </section>
-//   );
-// }
 import { motion } from "framer-motion";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 import heroCar from "../assets/hero-car.png";
-import heroBg from "../assets/hero-bg-pattern.png";
+import { site, telHref, whatsappHref } from "../config/site";
+import { BOOKING_FORM_ID } from "../context/BookingProvider";
+import { useBooking } from "../context/booking-context";
+import { heroHighlights } from "../data/content";
+import BookingForm from "./booking/BookingForm";
+import Button from "./ui/Button";
 
 export default function Hero() {
+  const { prefill } = useBooking();
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen overflow-hidden bg-[#070B16] pt-24"
-    >
+    <section id="home" className="relative overflow-hidden bg-ink pb-20 pt-32 lg:min-h-screen lg:pt-36">
       {/* Background */}
       <img
-        src={heroBg}
+        src={heroCar}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-20"
+        fetchPriority="high"
+        className="absolute inset-0 h-full w-full object-cover object-[65%_center] opacity-50"
       />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/50" />
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink to-transparent" />
 
-      <div className="absolute inset-0 bg-black/70"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6 min-h-screen grid lg:grid-cols-2 items-center gap-10">
-
-        {/* Left */}
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+        {/* Copy */}
         <motion.div
-          initial={{ x: -60, opacity: 0 }}
+          initial={{ x: -40, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="bg-yellow-500 text-black px-4 py-2 rounded-full font-semibold">
-            🚖 Premium Cab Service
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand/40 bg-brand/10 px-4 py-1.5 text-sm font-semibold text-brand-light">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-brand" />
+            {site.name}
           </span>
 
-          <h1 className="mt-8 text-6xl font-bold text-white leading-tight">
-            Shri Balaji
-            <br />
-            <span className="text-yellow-400">
-              Faridabad Cab Service
-            </span>
+          <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+            Reliable Cabs in <span className="text-brand-light">Faridabad</span>, Delhi NCR &amp; Across India
           </h1>
 
-          <p className="mt-6 text-gray-300 text-lg leading-8">
-            Airport Pickup • Local Trips • Delhi NCR •
-            Outstation • All India Permit
-          </p>
+          <p className="mt-6 max-w-xl text-lg leading-8 text-gray-300">{site.description}</p>
 
-          <div className="flex gap-5 mt-10">
-
-            <a
-              href="tel:9229129633"
-              className="bg-yellow-500 text-black px-8 py-4 rounded-full font-semibold flex items-center gap-3 hover:scale-105 transition"
-            >
-              <FaPhoneAlt />
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button href={telHref()} size="lg" icon={FaPhoneAlt}>
               Call Now
-            </a>
-
-            <a
-              href="https://wa.me/919229129633"
-              target="_blank"
-              rel="noreferrer"
-              className="border border-green-500 text-green-400 px-8 py-4 rounded-full font-semibold flex items-center gap-3 hover:bg-green-500 hover:text-white transition"
-            >
-              <FaWhatsapp />
+            </Button>
+            <Button href={whatsappHref()} variant="whatsapp" size="lg" icon={FaWhatsapp}>
               WhatsApp
-            </a>
-
+            </Button>
           </div>
 
+          <ul className="mt-10 grid max-w-lg grid-cols-2 gap-4">
+            {heroHighlights.map(({ icon: Icon, text }) => (
+              <li key={text} className="flex items-center gap-3 text-gray-300">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-brand-light ring-1 ring-line">
+                  <Icon aria-hidden="true" />
+                </span>
+                {text}
+              </li>
+            ))}
+          </ul>
         </motion.div>
 
-        {/* Right */}
-
+        {/* Booking */}
         <motion.div
-          initial={{ x: 60, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <img
-            src={heroCar}
-            alt="Cab"
-            className="w-full hover:scale-105 transition duration-700"
-          />
+          <BookingForm id={BOOKING_FORM_ID} prefill={prefill} />
         </motion.div>
-
       </div>
     </section>
   );

@@ -1,165 +1,82 @@
-import { motion } from "framer-motion";
-import {
-  FaPhoneAlt,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaClock,
-} from "react-icons/fa";
+import { FaClock, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 
 import bg from "../assets/contact-bg.png";
+import { formatPhone, mailHref, site, telHref } from "../config/site";
+import BookingForm from "./booking/BookingForm";
+import Card from "./ui/Card";
+import IconBadge from "./ui/IconBadge";
+import Reveal from "./ui/Reveal";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
+
+const contactItems = [
+  {
+    icon: FaPhoneAlt,
+    title: "Phone Numbers",
+    links: site.phones.map((phone) => ({ label: formatPhone(phone), href: telHref(phone) })),
+  },
+  {
+    icon: FaEnvelope,
+    title: "Email",
+    links: Object.values(site.emails).map((email) => ({ label: email, href: mailHref(email) })),
+  },
+  { icon: FaMapMarkerAlt, title: "Service Area", text: site.serviceArea },
+  { icon: FaClock, title: "Availability", text: site.hours },
+];
 
 export default function Contact() {
   return (
-    <section
+    <Section
       id="contact"
-      className="relative py-24 bg-[#050816] overflow-hidden"
+      background={
+        <>
+          <img src={bg} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-ink/85" />
+        </>
+      }
     >
-      <img
-        src={bg}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-20"
+      <SectionHeading
+        eyebrow="Contact Us"
+        title="Book Your Cab Today"
+        description={`Contact ${site.name} for airport transfers, local rides, Delhi NCR travel, and outstation journeys.`}
       />
 
-      <div className="absolute inset-0 bg-black/80"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6">
-
-        <div className="text-center">
-
-          <span className="uppercase tracking-[4px] text-yellow-400 font-semibold">
-            Contact Us
-          </span>
-
-          <h2 className="text-5xl font-bold text-white mt-4">
-            Book Your Cab Today
-          </h2>
-
-          <p className="text-gray-400 mt-5 max-w-2xl mx-auto">
-            Contact Shri Balaji Faridabad Cab Service for airport transfers,
-            local rides, Delhi NCR travel, and outstation journeys.
-          </p>
-
+      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+        <div className="grid content-start gap-4">
+          {contactItems.map((item, index) => (
+            <Reveal key={item.title} index={index}>
+              <Card className="flex gap-5 p-6">
+                <IconBadge icon={item.icon} />
+                <div className="min-w-0">
+                  <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                  {item.links ? (
+                    item.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="mt-1 block break-words text-gray-400 transition hover:text-brand-light"
+                      >
+                        {link.label}
+                      </a>
+                    ))
+                  ) : (
+                    <p className="mt-1 text-gray-400">{item.text}</p>
+                  )}
+                </div>
+              </Card>
+            </Reveal>
+          ))}
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-14 mt-20">
-
-          {/* LEFT */}
-
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: .6 }}
-            className="space-y-8"
-          >
-
-            <Info
-              icon={<FaPhoneAlt />}
-              title="Phone Numbers"
-              text={
-                <>
-                  +91 9229129633
-                  <br />
-                  +91 8383043915
-                </>
-              }
-            />
-
-            <Info
-              icon={<FaEnvelope />}
-              title="Main Email"
-              text="shribalajicabservices.fbd@gmail.com"
-            />
-
-            <Info
-              icon={<FaEnvelope />}
-              title="Alternate Email"
-              text="rkramankmr1@gmail.com"
-            />
-
-            <Info
-              icon={<FaMapMarkerAlt />}
-              title="Service Area"
-              text="Faridabad • Delhi NCR • All India Permit"
-            />
-
-            <Info
-              icon={<FaClock />}
-              title="Availability"
-              text="24 Hours • 7 Days a Week"
-            />
-
-          </motion.div>
-
-          {/* RIGHT */}
-
-          <motion.form
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: .6 }}
-            className="bg-[#111827]/80 backdrop-blur-xl rounded-3xl p-10 border border-white/10"
-          >
-
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none mb-5"
-            />
-
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none mb-5"
-            />
-
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              className="w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none mb-5"
-            />
-
-            <textarea
-              rows="6"
-              placeholder="Tell us about your trip..."
-              className="w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none resize-none"
-            ></textarea>
-
-            <button
-              className="mt-8 w-full bg-yellow-500 hover:bg-yellow-400 text-black py-4 rounded-xl font-bold transition"
-            >
-              Send Inquiry
-            </button>
-
-          </motion.form>
-
-        </div>
-
+        <Reveal delay={0.2}>
+          <BookingForm
+            id="contact-form"
+            variant="full"
+            title="Send an Inquiry"
+            subtitle="Share your trip details and we'll get back to you with the best fare."
+          />
+        </Reveal>
       </div>
-    </section>
-  );
-}
-
-function Info({ icon, title, text }) {
-  return (
-    <div className="flex gap-5">
-
-      <div className="w-16 h-16 rounded-full bg-yellow-500 flex items-center justify-center text-black text-2xl">
-        {icon}
-      </div>
-
-      <div>
-
-        <h3 className="text-white text-xl font-bold">
-          {title}
-        </h3>
-
-        <p className="text-gray-400 mt-2 leading-7">
-          {text}
-        </p>
-
-      </div>
-
-    </div>
+    </Section>
   );
 }

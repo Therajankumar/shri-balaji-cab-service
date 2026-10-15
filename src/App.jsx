@@ -1,7 +1,12 @@
+import BookingProvider from "./context/BookingProvider";
 import Home from "./pages/Home";
 
 function App() {
-  return <Home />;
+  return (
+    <BookingProvider>
+      <Home />
+    </BookingProvider>
+  );
 }
 
 export default App;
