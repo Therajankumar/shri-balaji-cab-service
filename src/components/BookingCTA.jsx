@@ -1,145 +1,57 @@
-import { motion } from "framer-motion";
-import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
+import { FaCalendarCheck, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 import bg from "../assets/contact-bg.png";
+import { site, telHref, whatsappHref } from "../config/site";
+import { useBooking } from "../context/booking-context";
+import { bookingHighlights } from "../data/content";
+import Button from "./ui/Button";
+import CheckItem from "./ui/CheckItem";
+import Reveal from "./ui/Reveal";
 
 export default function BookingCTA() {
+  const { startBooking } = useBooking();
+
   return (
-    <section className="py-24 bg-[#050816]">
+    <section className="bg-ink py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6">
+        <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-line">
+          <img src={bg} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/50" />
 
-      <div className="max-w-7xl mx-auto px-6">
+          <div className="relative max-w-3xl px-6 py-14 sm:px-12 lg:px-20 lg:py-20">
+            <span className="inline-block rounded-full bg-brand px-4 py-1.5 text-sm font-semibold text-ink">
+              Premium Cab Booking
+            </span>
 
-        <motion.div
-          initial={{ opacity: 0, scale: .95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: .7 }}
-          viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[40px]"
-        >
+            <h2 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+              Book Your Ride <span className="text-brand-light">Today</span>
+            </h2>
 
-          {/* Background */}
+            <p className="mt-6 text-lg leading-8 text-gray-300">
+              Whether it&apos;s an airport pickup, local travel, Delhi NCR, an outstation trip or All India
+              Permit, {site.name} is just one call away.
+            </p>
 
-          <img
-            src={bg}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+            <ul className="mt-8 grid gap-4 text-white sm:grid-cols-2">
+              {bookingHighlights.map((item) => (
+                <CheckItem key={item}>{item}</CheckItem>
+              ))}
+            </ul>
 
-          <div className="absolute inset-0 bg-black/75"></div>
-
-          <div className="relative z-10 px-10 lg:px-20 py-20">
-
-            <div className="max-w-3xl">
-
-              <span className="inline-block bg-yellow-500 text-black px-5 py-2 rounded-full font-semibold">
-                Premium Cab Booking
-              </span>
-
-              <h2 className="text-5xl lg:text-6xl font-bold text-white mt-8 leading-tight">
-
-                Book Your Ride
-                <br />
-
-                <span className="text-yellow-400">
-
-                  Today
-
-                </span>
-
-              </h2>
-
-              <p className="text-gray-300 mt-8 text-lg leading-8">
-
-                Whether it's Airport Pickup,
-                Local Travel,
-                Delhi NCR,
-                Outstation Trips
-                or All India Permit,
-                Shri Balaji Faridabad Cab Service
-                is just one call away.
-
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-5 mt-10">
-
-                <div className="flex items-center gap-3">
-
-                  <span className="text-yellow-400">✔</span>
-
-                  <span className="text-white">
-                    Clean Vehicles
-                  </span>
-
-                </div>
-
-                <div className="flex items-center gap-3">
-
-                  <span className="text-yellow-400">✔</span>
-
-                  <span className="text-white">
-                    Professional Drivers
-                  </span>
-
-                </div>
-
-                <div className="flex items-center gap-3">
-
-                  <span className="text-yellow-400">✔</span>
-
-                  <span className="text-white">
-                    Affordable Pricing
-                  </span>
-
-                </div>
-
-                <div className="flex items-center gap-3">
-
-                  <span className="text-yellow-400">✔</span>
-
-                  <span className="text-white">
-                    24×7 Support
-                  </span>
-
-                </div>
-
-              </div>
-
-              <div className="flex flex-wrap gap-6 mt-12">
-
-                <a
-                  href="tel:9229129633"
-                  className="flex items-center gap-3 bg-yellow-500 hover:bg-yellow-400 px-8 py-4 rounded-full font-bold text-black transition hover:scale-105"
-                >
-
-                  <FaPhoneAlt />
-
-                  Call Now
-
-                </a>
-
-                <a
-                  href="https://wa.me/919229129633"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-3 border border-green-500 text-green-400 px-8 py-4 rounded-full font-bold hover:bg-green-500 hover:text-white transition hover:scale-105"
-                >
-
-                  <FaWhatsapp />
-
-                  WhatsApp
-
-                </a>
-
-              </div>
-
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button size="lg" icon={FaCalendarCheck} onClick={() => startBooking()}>
+                Book Online
+              </Button>
+              <Button href={telHref()} variant="ghost" size="lg" icon={FaPhoneAlt}>
+                Call Now
+              </Button>
+              <Button href={whatsappHref()} variant="whatsapp" size="lg" icon={FaWhatsapp}>
+                WhatsApp
+              </Button>
             </div>
-
           </div>
-
-        </motion.div>
-
+        </Reveal>
       </div>
-
     </section>
   );
 }

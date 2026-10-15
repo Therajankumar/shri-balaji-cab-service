@@ -1,193 +1,88 @@
-import { motion } from "framer-motion";
-import { FaUsers, FaSnowflake, FaSuitcase, FaPhoneAlt } from "react-icons/fa";
+import {
+  FaCalendarCheck,
+  FaPhoneAlt,
+  FaSnowflake,
+  FaSuitcase,
+  FaUserTie,
+  FaUsers,
+} from "react-icons/fa";
 
-import dezire from "../assets/fleet/dezire.png";
-import ertiga from "../assets/fleet/ertiga.png";
-import innova from "../assets/fleet/innova-crysta.png";
-import carens from "../assets/fleet/kia-carens.png";
-import traveller from "../assets/fleet/tempo-traveller.png";
-
-const fleet = [
-  {
-    name: "Maruti Dzire",
-    seats: "4 + 1 Seater",
-    image: dezire,
-  },
-  {
-    name: "Maruti Ertiga",
-    seats: "6 + 1 Seater",
-    image: ertiga,
-  },
-  {
-    name: "Toyota Innova Crysta",
-    seats: "6 + 1 Seater",
-    image: innova,
-  },
-  {
-    name: "Kia Carens",
-    seats: "6 + 1 Seater",
-    image: carens,
-  },
-  {
-    name: "Tempo Traveller",
-    seats: "9 / 12 / 16 Seater",
-    image: traveller,
-  },
-];
+import { telHref } from "../config/site";
+import { useBooking } from "../context/booking-context";
+import { fleet } from "../data/content";
+import Button from "./ui/Button";
+import Card from "./ui/Card";
+import Reveal from "./ui/Reveal";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
 
 export default function Fleet() {
+  const { startBooking } = useBooking();
+
   return (
-    <section
+    <Section
       id="fleet"
-      className="bg-[#050816] py-24 relative overflow-hidden"
+      background={<div className="absolute -left-24 top-0 h-96 w-96 rounded-full bg-brand/10 blur-[140px]" />}
     >
-      {/* Background Glow */}
+      <SectionHeading
+        eyebrow="Our Fleet"
+        title="Choose Your Perfect Ride"
+        description="From comfortable sedans to spacious tempo travellers, we provide clean, well-maintained vehicles for every trip."
+      />
 
-      <div className="absolute top-0 left-0 w-96 h-96 bg-yellow-500/10 rounded-full blur-[140px]" />
-
-      <div className="max-w-7xl mx-auto px-6 relative">
-
-        {/* Heading */}
-
-        <div className="text-center">
-
-          <span className="text-yellow-400 uppercase tracking-[4px] font-semibold">
-            Our Fleet
-          </span>
-
-          <h2 className="text-5xl font-bold text-white mt-4">
-            Choose Your Perfect Ride
-          </h2>
-
-          <p className="text-gray-400 max-w-2xl mx-auto mt-5">
-            From comfortable sedans to spacious tempo travellers,
-            we provide clean, well-maintained vehicles for every trip.
-          </p>
-
-        </div>
-
-        {/* Cards */}
-
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-20">
-
-          {fleet.map((car, index) => (
-
-            <motion.div
-              key={car.name}
-              initial={{ opacity: 0, y: 70 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: index * 0.12,
-                duration: .6,
-              }}
-              viewport={{ once: true }}
-              className="group rounded-3xl bg-[#111827]
-              border border-white/10 overflow-hidden
-              hover:border-yellow-500
-              hover:-translate-y-3
-              duration-500"
-            >
-
-              {/* Image */}
-
-              <div className="overflow-hidden bg-gradient-to-b from-[#1c2333] to-[#0b0d18]">
-
+      <div className="flex flex-wrap justify-center gap-6 lg:gap-8">
+        {fleet.map((car, index) => (
+          <Reveal
+            key={car.name}
+            index={index}
+            className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1.334rem)]"
+          >
+            <Card interactive className="group flex h-full flex-col overflow-hidden">
+              <div className="relative aspect-[3/2] overflow-hidden bg-black">
                 <img
                   src={car.image}
                   alt={car.name}
-                  className="w-full h-64 object-contain p-5
-                  group-hover:scale-110
-                  transition duration-700"
+                  loading="lazy"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
-
+                <span className="absolute left-4 top-4 rounded-full border border-brand/30 bg-ink/80 px-3 py-1 text-xs font-semibold text-brand-light backdrop-blur">
+                  {car.category}
+                </span>
               </div>
 
-              {/* Content */}
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="text-xl font-bold text-white">{car.name}</h3>
+                <p className="mt-1 text-sm text-gray-400">{car.idealFor}</p>
 
-              <div className="p-7">
+                <ul className="mt-5 grid grid-cols-2 gap-3 text-sm text-gray-300">
+                  <Spec icon={FaUsers}>{car.seats}</Spec>
+                  <Spec icon={FaSnowflake}>Air Conditioned</Spec>
+                  <Spec icon={FaSuitcase}>Luggage Space</Spec>
+                  <Spec icon={FaUserTie}>Expert Driver</Spec>
+                </ul>
 
-                <h3 className="text-2xl font-bold text-white">
-
-                  {car.name}
-
-                </h3>
-
-                <div className="inline-block mt-3 bg-yellow-500 text-black px-4 py-2 rounded-full font-semibold">
-
-                  {car.seats}
-
+                <div className="mt-auto flex gap-3 pt-6">
+                  <Button block icon={FaCalendarCheck} onClick={() => startBooking({ vehicle: car.name })}>
+                    Book Now
+                  </Button>
+                  <Button href={telHref()} variant="ghost" size="icon" aria-label={`Call to book ${car.name}`}>
+                    <FaPhoneAlt aria-hidden="true" />
+                  </Button>
                 </div>
-
-                {/* Features */}
-
-                <div className="grid grid-cols-2 gap-4 mt-7">
-
-                  <Feature
-                    icon={<FaUsers />}
-                    text="Comfort"
-                  />
-
-                  <Feature
-                    icon={<FaSnowflake />}
-                    text="AC"
-                  />
-
-                  <Feature
-                    icon={<FaSuitcase />}
-                    text="Luggage"
-                  />
-
-                  <Feature
-                    icon="✔"
-                    text="Driver"
-                  />
-
-                </div>
-
-                {/* Button */}
-
-                <a
-                  href="tel:9229129633"
-                  className="mt-8 flex justify-center items-center gap-3
-                  bg-yellow-500
-                  text-black
-                  font-bold
-                  py-4
-                  rounded-full
-                  hover:bg-yellow-400
-                  hover:scale-105
-                  transition"
-                >
-
-                  <FaPhoneAlt />
-
-                  Book Now
-
-                </a>
-
               </div>
-
-            </motion.div>
-
-          ))}
-
-        </div>
-
+            </Card>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
-function Feature({ icon, text }) {
+function Spec({ icon: Icon, children }) {
   return (
-    <div className="flex items-center gap-2 text-gray-300">
-
-      <span className="text-yellow-400">
-        {icon}
-      </span>
-
-      <span>{text}</span>
-
-    </div>
+    <li className="flex items-center gap-2">
+      <Icon className="shrink-0 text-brand-light" aria-hidden="true" />
+      {children}
+    </li>
   );
 }

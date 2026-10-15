@@ -1,110 +1,59 @@
-import { motion } from "framer-motion";
+import { FaArrowRight } from "react-icons/fa";
 
-import airport from "../assets/icons/airport.png";
-import local from "../assets/icons/local.png";
-import outstation from "../assets/icons/outstation.png";
-import reliable from "../assets/icons/reliable.png";
-
-const services = [
-  {
-    title: "Airport Pickup & Drop",
-    desc: "Reliable airport transfers with punctual pickups and comfortable rides.",
-    image: airport,
-  },
-  {
-    title: "Local City Rides",
-    desc: "Affordable local travel within Faridabad and Delhi NCR.",
-    image: local,
-  },
-  {
-    title: "Outstation Trips",
-    desc: "Enjoy hassle-free journeys across India with experienced drivers.",
-    image: outstation,
-  },
-  {
-    title: "Safe & Reliable Service",
-    desc: "Professional drivers, sanitized vehicles and 24×7 customer support.",
-    image: reliable,
-  },
-];
+import { useBooking } from "../context/booking-context";
+import { services, tripTypes } from "../data/content";
+import Button from "./ui/Button";
+import Card from "./ui/Card";
+import Reveal from "./ui/Reveal";
+import Section from "./ui/Section";
+import SectionHeading from "./ui/SectionHeading";
 
 export default function Services() {
+  const { startBooking } = useBooking();
+
   return (
-    <section
-      id="services"
-      className="bg-[#09111f] py-24"
-    >
-      <div className="max-w-7xl mx-auto px-6">
+    <Section id="services" tone="alt">
+      <SectionHeading
+        eyebrow="Our Services"
+        title="Premium Travel Solutions"
+        description="Whether you're travelling locally or across India, we offer comfortable, safe and affordable rides."
+      />
 
-        <div className="text-center">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        {services.map((service, index) => {
+          const trip = tripTypes.find((t) => t.id === service.tripType);
 
-          <span className="text-yellow-400 uppercase tracking-[4px]">
-            Our Services
-          </span>
+          return (
+            <Reveal key={service.title} index={index} className="h-full">
+              <Card interactive className="group flex h-full flex-col overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden bg-black">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                </div>
 
-          <h2 className="text-5xl font-bold text-white mt-3">
-            Premium Travel Solutions
-          </h2>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-xl font-bold text-white">{service.title}</h3>
+                  <p className="mt-3 flex-1 leading-7 text-gray-400">{service.desc}</p>
 
-          <p className="text-gray-400 mt-5 max-w-2xl mx-auto">
-            Whether you're travelling locally or across India,
-            Shri Balaji Faridabad Cab Service offers comfortable,
-            safe and affordable rides.
-          </p>
-
-        </div>
-
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mt-20">
-
-          {services.map((service, index) => (
-
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 70 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: .5,
-                delay: index * .15,
-              }}
-              viewport={{ once: true }}
-              className="group bg-[#111827] rounded-3xl border border-white/10
-              overflow-hidden hover:border-yellow-500 transition duration-300
-              hover:-translate-y-3"
-            >
-
-              <div className="overflow-hidden">
-
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-56 object-cover group-hover:scale-110 transition duration-500"
-                />
-
-              </div>
-
-              <div className="p-6">
-
-                <h3 className="text-white text-2xl font-bold">
-
-                  {service.title}
-
-                </h3>
-
-                <p className="text-gray-400 mt-4 leading-7">
-
-                  {service.desc}
-
-                </p>
-
-              </div>
-
-            </motion.div>
-
-          ))}
-
-        </div>
-
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mt-6 self-start"
+                    onClick={() => startBooking(trip ? { tripType: trip.id } : {})}
+                  >
+                    {trip ? `Book ${trip.label} Ride` : "Book a Ride"}
+                    <FaArrowRight aria-hidden="true" className="text-xs" />
+                  </Button>
+                </div>
+              </Card>
+            </Reveal>
+          );
+        })}
       </div>
-    </section>
+    </Section>
   );
 }

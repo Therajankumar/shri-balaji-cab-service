@@ -1,101 +1,106 @@
 import { useState } from "react";
-import { FaBars, FaTimes, FaCarSide, FaPhoneAlt } from "react-icons/fa";
+import { FaBars, FaCalendarCheck, FaPhoneAlt, FaTimes } from "react-icons/fa";
+
+import { formatPhone, primaryPhone, telHref } from "../config/site";
+import { useBooking } from "../context/booking-context";
+import { navLinks } from "../data/content";
+import useActiveSection from "../hooks/useActiveSection";
+import useScrolled from "../hooks/useScrolled";
+import Button from "./ui/Button";
+import Logo from "./ui/Logo";
+
+const sectionIds = navLinks.map((link) => link.id);
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const scrolled = useScrolled();
+  const active = useActiveSection(sectionIds);
+  const { startBooking } = useBooking();
 
-  const navLinks = [
-    { title: "Home", href: "#home" },
-    { title: "Services", href: "#services" },
-    { title: "Fleet", href: "#fleet" },
-    { title: "Contact", href: "#contact" },
-  ];
+  const solid = scrolled || menuOpen;
+
+  function book() {
+    setMenuOpen(false);
+    startBooking();
+  }
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-black/70 backdrop-blur-md border-b border-gray-800">
-      <div className="max-w-7xl mx-auto h-20 px-6 flex items-center justify-between">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition duration-300 ${
+        solid ? "border-b border-line bg-ink/85 shadow-lg shadow-black/30 backdrop-blur-md" : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6">
+        <Logo />
 
-        {/* Logo */}
-        <a href="#home" className="flex items-center gap-3">
-          <div className="bg-yellow-500 p-3 rounded-full">
-            <FaCarSide className="text-black text-xl" />
-          </div>
-
-          <div>
-            <h1 className="text-white text-lg font-bold">
-              Shri Balaji
-            </h1>
-
-            <p className="text-gray-300 text-sm">
-              Faridabad Cab Service
-            </p>
-          </div>
-        </a>
-
-        {/* Desktop Menu */}
-        <nav className="hidden md:flex items-center gap-8">
-
+        {/* Desktop */}
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
           {navLinks.map((link) => (
             <a
-              key={link.title}
-              href={link.href}
-              className="relative text-white font-medium hover:text-yellow-400 transition duration-300
-              after:absolute after:left-0 after:-bottom-1 after:h-[2px]
-              after:w-0 after:bg-yellow-400 after:transition-all after:duration-300
-              hover:after:w-full"
+              key={link.id}
+              href={`#${link.id}`}
+              aria-current={active === link.id ? "page" : undefined}
+              className={`relative text-sm font-medium transition hover:text-brand-light
+              after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:bg-brand after:transition-all after:duration-300
+              ${active === link.id ? "text-brand-light after:w-full" : "text-gray-200 after:w-0 hover:after:w-full"}`}
             >
               {link.title}
             </a>
           ))}
-
-          <a
-            href="tel:9229129633"
-            className="flex items-center gap-2 bg-yellow-500 text-black px-5 py-3 rounded-full
-            font-semibold hover:bg-yellow-400 hover:scale-105 transition duration-300"
-          >
-            <FaPhoneAlt />
-            Book Now
-          </a>
-
         </nav>
 
-        {/* Mobile Menu Button */}
+        <div className="hidden items-center gap-4 lg:flex">
+          <a
+            href={telHref()}
+            className="flex items-center gap-2 text-sm font-semibold text-white transition hover:text-brand-light"
+          >
+            <FaPhoneAlt className="text-brand-light" aria-hidden="true" />
+            {formatPhone(primaryPhone)}
+          </a>
+          <Button size="sm" icon={FaCalendarCheck} onClick={book}>
+            Book a Cab
+          </Button>
+        </div>
+
+        {/* Mobile toggle */}
         <button
-          className="md:hidden text-white text-2xl"
-          onClick={() => setMenuOpen(!menuOpen)}
+          type="button"
+          className="text-2xl text-white lg:hidden"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
         >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
-
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <div
-        className={`md:hidden bg-black transition-all duration-300 overflow-hidden ${
-          menuOpen ? "max-h-96" : "max-h-0"
-        }`}
+        className={`overflow-hidden transition-all duration-300 lg:hidden ${menuOpen ? "max-h-[32rem]" : "max-h-0"}`}
       >
-        <div className="flex flex-col px-6 py-5 gap-5">
-
+        <nav className="flex flex-col gap-1 px-5 pb-6" aria-label="Mobile">
           {navLinks.map((link) => (
             <a
-              key={link.title}
-              href={link.href}
+              key={link.id}
+              href={`#${link.id}`}
               onClick={() => setMenuOpen(false)}
-              className="text-white hover:text-yellow-400"
+              className={`rounded-xl px-4 py-3 font-medium transition hover:bg-white/5 ${
+                active === link.id ? "text-brand-light" : "text-gray-200"
+              }`}
             >
               {link.title}
             </a>
           ))}
 
-          <a
-            href="tel:9229129633"
-            className="bg-yellow-500 text-black text-center py-3 rounded-full font-semibold"
-          >
-            Book Now
-          </a>
-
-        </div>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            <Button href={telHref()} variant="ghost" icon={FaPhoneAlt}>
+              Call
+            </Button>
+            <Button icon={FaCalendarCheck} onClick={book}>
+              Book
+            </Button>
+          </div>
+        </nav>
       </div>
     </header>
   );

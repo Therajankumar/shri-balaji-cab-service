@@ -6,7 +6,7 @@ Single-page marketing website for Shri Balaji Faridabad Cab Service, built with 
 
 ```bash
 npm install
-cp .env.example .env.local   # optional – see "Inquiry form" below
+cp .env.example .env.local   # optional – see "Booking form" below
 npm run dev                  # http://localhost:5173
 npm run build                # production build in dist/
 npm run lint
@@ -16,46 +16,72 @@ npm run lint
 
 ```
 src/
-├── main.jsx              # React entry point
-├── App.jsx               # Renders the Home page
-├── index.css             # Tailwind import + global styles
-├── pages/Home.jsx        # Composes all sections in order
-├── lib/inquiry.js        # Inquiry form logic: validation, EmailJS sending, WhatsApp link
-└── components/           # Page sections (see below)
+├── main.jsx / App.jsx        # Entry point; App wraps the page in BookingProvider
+├── index.css                 # Tailwind import + design tokens (colors, font)
+├── config/site.js            # Business details (name, phones, emails, WhatsApp) + link helpers
+├── data/content.js           # All page content: nav, services, fleet, stats, features, reviews
+├── context/                  # BookingProvider / useBooking – shared "start a booking" action
+├── hooks/                    # useBookingForm, useActiveSection, useScrolled
+├── lib/inquiry.js            # Validation, EmailJS sending, WhatsApp message builder
+├── pages/Home.jsx            # Composes all sections in order
+└── components/
+    ├── ui/                   # Reusable building blocks (see below)
+    ├── booking/BookingForm   # Booking/inquiry form used in Hero and Contact
+    └── *.jsx                 # Page sections
 ```
 
-## Components
+To change phone numbers, emails, vehicles, services, reviews etc. edit **`src/config/site.js`** or **`src/data/content.js`** – no component changes needed.
+
+## Design system
+
+Colors are defined once as Tailwind theme tokens in `src/index.css` and used as classes:
+`bg-ink` / `bg-ink-soft` (page backgrounds), `bg-surface` / `bg-surface-raised` (cards, inputs),
+`bg-brand` / `text-brand-light` (yellow accent), `border-line` (subtle borders).
+
+### Reusable UI components (`src/components/ui`)
+
+| Component | Purpose |
+|---|---|
+| `Section` | Section wrapper with consistent padding, max width and `base`/`alt` background tone. |
+| `SectionHeading` | Eyebrow + title + description block used at the top of every section. |
+| `Button` | Link or button with `primary`, `outline`, `whatsapp`, `ghost` variants and `sm`/`md`/`lg`/`icon` sizes. |
+| `Card` | Standard surface card; `interactive` adds the hover lift/highlight. |
+| `Reveal` | Shared fade-up scroll animation (pass `index` for staggering). |
+| `IconBadge` | Round yellow icon badge. |
+| `CheckItem` | Check-marked list item. |
+| `FormField` + `inputClass` | Labelled form field with error message and consistent input styling. |
+| `Logo` | Brand logo mark + name, used in Navbar and Footer. |
+
+## Page sections
 
 | Component | Functionality |
 |---|---|
-| `Navbar` | Fixed top header with logo, anchor links (Home, Services, Fleet, Contact), "Book Now" call button and a mobile hamburger menu. |
-| `Hero` | Full-screen landing section (`#home`) with business name, service summary, Call Now (`tel:`) and WhatsApp buttons, and an animated car image. |
-| `HeroStats` | Four animated stat cards (1000+ customers, 5+ vehicle types, 24×7 support, All India permit). |
-| `Services` | Service cards (`#services`): Airport pickup/drop, Local rides, Outstation trips, Safe & reliable service. |
-| `Fleet` | Vehicle cards (`#fleet`): Dzire, Ertiga, Innova Crysta, Kia Carens, Tempo Traveller – each with seating, features and a "Book Now" call button. |
-| `WhyChooseUs` | Four feature highlights: Safe & trusted, 24×7, Affordable pricing, All India permit. |
-| `BookingCTA` | Call-to-action banner with Call Now and WhatsApp buttons. |
-| `Testimonials` | Customer review cards with 5-star ratings. |
-| `Contact` | Contact details (phones, emails, service area, hours) and the **inquiry form** (`#contact`). |
-| `Footer` | Logo, quick links, service list, contact info, credits and a scroll-to-top button. |
-| `FloatingCall` | Floating WhatsApp and Call buttons, always visible in the bottom-right corner. |
-| `Button` | Reusable link-button (primary/outline variants) – currently unused. |
-| `src/Test.jsx` | Scratch test component – not used by the app. |
+| `Navbar` | Fixed header that turns solid on scroll, highlights the active section, shows the phone number and a "Book a Cab" button; mobile menu. |
+| `Hero` | Headline, Call/WhatsApp buttons, highlights and the main **booking form** (`#book`). |
+| `HeroStats` | Animated stat cards. |
+| `Services` | Service cards; "Book … Ride" pre-selects the trip type in the booking form. |
+| `Fleet` | Vehicle cards with category, seats and specs; "Book Now" pre-selects the vehicle in the booking form. |
+| `WhyChooseUs` | Feature highlights. |
+| `BookingCTA` | Call-to-action banner with Book Online / Call / WhatsApp. |
+| `Testimonials` | Customer review cards. |
+| `Contact` | Clickable contact details and the full inquiry form (adds email + notes). |
+| `Footer` | Logo, quick links, services, contact info, credits, back-to-top. |
+| `FloatingCall` | Floating WhatsApp and Call buttons. |
 
-## Inquiry form (backend)
+## Booking form (backend)
 
-The site is a static frontend. The contact form is wired up as follows:
+The site is a static frontend. Booking requests work like this:
 
-1. **Validation** – name, a valid Indian mobile number, and trip details are required; email is optional but validated.
-2. **Email delivery via [EmailJS](https://www.emailjs.com/)** – when the `VITE_EMAILJS_*` variables are set, the inquiry is emailed to the business with no server needed.
-3. **WhatsApp fallback** – when EmailJS isn't configured, the form opens WhatsApp (+91 9229129633) with the inquiry pre-filled. If EmailJS fails, the user gets a WhatsApp link and the phone number instead.
+1. **Validation** – pickup location, name and a valid Indian mobile number are required; email is optional but validated.
+2. **Email delivery via [EmailJS](https://www.emailjs.com/)** – when the `VITE_EMAILJS_*` variables are set, the request is emailed to the business with no server needed.
+3. **WhatsApp fallback** – when EmailJS isn't configured, the form opens WhatsApp with the booking pre-filled. If EmailJS fails, the user gets a WhatsApp link and the phone number instead.
 
 ### Setting up EmailJS
 
 1. Create a free account at https://dashboard.emailjs.com.
 2. **Email Services** → add a service (e.g. Gmail with `shribalajicabservices.fbd@gmail.com`) → copy the **Service ID**.
 3. **Email Templates** → create a template using these variables:
-   `{{from_name}}`, `{{from_email}}`, `{{phone}}`, `{{message}}`, `{{submitted_at}}` (set *Reply To* to `{{reply_to}}`) → copy the **Template ID**.
+   `{{trip_type}}`, `{{pickup}}`, `{{drop}}`, `{{travel_date}}`, `{{travel_time}}`, `{{vehicle}}`, `{{from_name}}`, `{{phone}}`, `{{from_email}}`, `{{message}}`, `{{submitted_at}}` (set *Reply To* to `{{reply_to}}`) → copy the **Template ID**.
 4. **Account → General** → copy the **Public Key**.
 5. Put the values in `.env.local` (or in your hosting provider's environment variables, e.g. Vercel/Netlify) and rebuild:
 

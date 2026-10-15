@@ -1,29 +1,31 @@
-import Navbar from "../components/Navbar";
+import BookingCTA from "../components/BookingCTA";
+import Contact from "../components/Contact";
+import Fleet from "../components/Fleet";
+import FloatingCall from "../components/FloatingCall";
+import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import HeroStats from "../components/HeroStats";
+import Navbar from "../components/Navbar";
 import Services from "../components/Services";
-import Fleet from "../components/Fleet";
-import WhyChooseUs from "../components/WhyChooseUs";
-import BookingCTA from "../components/BookingCTA";
 import Testimonials from "../components/Testimonials";
-import Contact from "../components/Contact";
-import Footer from "../components/Footer";
-import FloatingCall from "../components/FloatingCall";
+import WhyChooseUs from "../components/WhyChooseUs";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <HeroStats />
-      <Services />
-      <Fleet/>
-      <WhyChooseUs/>
-      <BookingCTA/>
-      <Testimonials/>
-      <Contact/>
-      <Footer/>
-      <FloatingCall/>
+      <main>
+        <Hero />
+        <HeroStats />
+        <Services />
+        <Fleet />
+        <WhyChooseUs />
+        <BookingCTA />
+        <Testimonials />
+        <Contact />
+      </main>
+      <Footer />
+      <FloatingCall />
     </>
   );
 }
