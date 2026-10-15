@@ -57,7 +57,7 @@ export default function Footer() {
           </FooterColumn>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-line pt-8 text-center text-sm text-gray-500 md:flex-row md:text-left">
+        <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-line pt-8 text-center text-sm text-gray-500 md:flex-row md:pr-20 md:text-left">
           <div>
             <p>
               © {new Date().getFullYear()} {site.name}. All Rights Reserved.
