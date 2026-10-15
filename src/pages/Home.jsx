@@ -8,6 +8,7 @@ import BookingCTA from "../components/BookingCTA";
 import Testimonials from "../components/Testimonials";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
+import FloatingCall from "../components/FloatingCall";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <Testimonials/>
       <Contact/>
       <Footer/>
+      <FloatingCall/>
     </>
   );
 }

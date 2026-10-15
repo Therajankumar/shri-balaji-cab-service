@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaPhoneAlt,
@@ -7,8 +8,56 @@ import {
 } from "react-icons/fa";
 
 import bg from "../assets/contact-bg.png";
+import {
+  BUSINESS_PHONE,
+  buildWhatsAppLink,
+  emptyInquiry,
+  isEmailConfigured,
+  sendInquiryEmail,
+  validateInquiry,
+} from "../lib/inquiry";
 
 export default function Contact() {
+  const [values, setValues] = useState(emptyInquiry);
+  const [errors, setErrors] = useState({});
+  // idle | sending | success | whatsapp | error
+  const [status, setStatus] = useState("idle");
+  const [whatsappLink, setWhatsappLink] = useState("");
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const validationErrors = validateInquiry(values);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) return;
+
+    const link = buildWhatsAppLink(values);
+    setWhatsappLink(link);
+
+    // Without EmailJS credentials, deliver the inquiry through WhatsApp instead.
+    if (!isEmailConfigured) {
+      window.open(link, "_blank", "noopener,noreferrer");
+      setStatus("whatsapp");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      await sendInquiryEmail(values);
+      setStatus("success");
+      setValues(emptyInquiry);
+    } catch (err) {
+      console.error("Failed to send inquiry:", err);
+      setStatus("error");
+    }
+  }
+
   return (
     <section
       id="contact"
@@ -98,38 +147,95 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: .6 }}
+            onSubmit={handleSubmit}
+            noValidate
             className="bg-[#111827]/80 backdrop-blur-xl rounded-3xl p-10 border border-white/10"
           >
 
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none mb-5"
-            />
+            <Field error={errors.name}>
+              <input
+                type="text"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                placeholder="Your Name *"
+                autoComplete="name"
+                className={inputClass(errors.name)}
+              />
+            </Field>
 
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none mb-5"
-            />
+            <Field error={errors.email}>
+              <input
+                type="email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                placeholder="Email Address"
+                autoComplete="email"
+                className={inputClass(errors.email)}
+              />
+            </Field>
 
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              className="w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none mb-5"
-            />
+            <Field error={errors.phone}>
+              <input
+                type="tel"
+                name="phone"
+                value={values.phone}
+                onChange={handleChange}
+                placeholder="Phone Number *"
+                autoComplete="tel"
+                className={inputClass(errors.phone)}
+              />
+            </Field>
 
-            <textarea
-              rows="6"
-              placeholder="Tell us about your trip..."
-              className="w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none resize-none"
-            ></textarea>
+            <Field error={errors.message}>
+              <textarea
+                rows="6"
+                name="message"
+                value={values.message}
+                onChange={handleChange}
+                placeholder="Tell us about your trip... (pickup, drop, date, vehicle) *"
+                className={`${inputClass(errors.message)} resize-none`}
+              ></textarea>
+            </Field>
 
             <button
-              className="mt-8 w-full bg-yellow-500 hover:bg-yellow-400 text-black py-4 rounded-xl font-bold transition"
+              type="submit"
+              disabled={status === "sending"}
+              className="mt-3 w-full bg-yellow-500 hover:bg-yellow-400 text-black py-4 rounded-xl font-bold transition disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Send Inquiry
+              {status === "sending" ? "Sending..." : "Send Inquiry"}
             </button>
+
+            {status === "success" && (
+              <p className="mt-5 text-green-400" role="status">
+                Thank you! Your inquiry has been sent. We will call you back shortly.
+              </p>
+            )}
+
+            {status === "whatsapp" && (
+              <p className="mt-5 text-green-400" role="status">
+                Your inquiry has been opened in WhatsApp — just press send.
+                {" "}
+                <a href={whatsappLink} target="_blank" rel="noreferrer" className="underline">
+                  Open again
+                </a>
+              </p>
+            )}
+
+            {status === "error" && (
+              <p className="mt-5 text-red-400" role="alert">
+                Sorry, we couldn't send your inquiry right now.
+                {" "}
+                <a href={whatsappLink} target="_blank" rel="noreferrer" className="underline text-green-400">
+                  Send it on WhatsApp
+                </a>
+                {" "}or call{" "}
+                <a href={`tel:${BUSINESS_PHONE}`} className="underline text-yellow-400">
+                  +91 {BUSINESS_PHONE}
+                </a>.
+              </p>
+            )}
 
           </motion.form>
 
@@ -162,4 +268,18 @@ function Info({ icon, title, text }) {
 
     </div>
   );
+}
+function Field({ error, children }) {
+  return (
+    <div className="mb-5">
+      {children}
+      {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
+    </div>
+  );
+}
+
+function inputClass(error) {
+  return `w-full bg-[#1b2333] p-4 rounded-xl text-white outline-none border ${
+    error ? "border-red-500" : "border-transparent focus:border-yellow-500"
+  }`;
 }

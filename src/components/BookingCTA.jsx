@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaPhoneAlt, FaWhatsapp, FaArrowRight } from "react-icons/fa";
+import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 import bg from "../assets/contact-bg.png";
 
