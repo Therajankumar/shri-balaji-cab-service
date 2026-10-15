@@ -16,16 +16,16 @@ export default function BookingCTA() {
   const { startBooking } = useBooking();
 
   return (
-    <section className="bg-ink py-20 md:py-28">
+    <section className="bg-paper py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-line">
           <Img image={background} className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/85 to-ink/50" />
 
           <div className="relative max-w-3xl px-6 py-14 sm:px-12 lg:px-20 lg:py-20">
             <Badge>Premium Cab Booking</Badge>
 
-            <h2 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="mt-6 text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
               Book Your Ride <span className="text-brand-light">Today</span>
             </h2>
 

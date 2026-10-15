@@ -47,7 +47,7 @@ export default function BookingForm({
       noValidate
       className="scroll-mt-28 rounded-3xl border border-line bg-surface/85 p-6 shadow-2xl shadow-black/40 backdrop-blur-xl sm:p-8"
     >
-      <h3 className="text-2xl font-bold text-white">{title}</h3>
+      <h3 className="text-2xl font-semibold text-white">{title}</h3>
       <p className="mt-1 text-sm text-gray-400">{subtitle}</p>
 
       {/* Trip type */}

@@ -9,7 +9,7 @@ export default function HeroStats() {
         {stats.map((item, index) => (
           <Reveal key={item.title} index={index}>
             <Card interactive className="px-4 py-7 text-center md:py-9">
-              <p className="font-display text-3xl font-bold text-white md:text-4xl">{item.value}</p>
+              <p className="font-display text-3xl font-semibold text-white md:text-4xl">{item.value}</p>
               <span className="mx-auto mt-3 block h-0.5 w-8 rounded-full bg-brand" />
               <p className="mt-3 text-sm text-gray-400 md:text-base">{item.title}</p>
             </Card>

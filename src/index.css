@@ -7,11 +7,11 @@
 
   --color-brand: oklch(79.5% 0.184 86.047);
   --color-brand-light: oklch(85.2% 0.199 91.936);
-  --color-ink: #050816;
-  --color-ink-soft: #09111f;
-  --color-surface: #111827;
-  --color-surface-raised: #1b2333;
-  --color-line: rgb(255 255 255 / 0.1);
+  --color-ink: #121b2f;
+  --color-ink-soft: #18233b;
+  --color-surface: #1e2a44;
+  --color-surface-raised: #283553;
+  --color-line: rgb(255 255 255 / 0.12);
   --color-paper: #f6f4ee;
 }
 
