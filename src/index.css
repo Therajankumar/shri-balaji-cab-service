@@ -2,7 +2,7 @@
 
 /* Design tokens – use these (bg-ink, text-brand, border-line, ...) instead of raw hex values. */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
 
   --color-brand: oklch(79.5% 0.184 86.047);
   --color-brand-light: oklch(85.2% 0.199 91.936);

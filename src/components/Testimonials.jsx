@@ -1,11 +1,14 @@
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
 
-import bg from "../assets/testimonial-bg.png";
 import { testimonials } from "../data/content";
 import Card from "./ui/Card";
 import Reveal from "./ui/Reveal";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
+import Img from "./ui/Img";
+import { responsiveImage } from "../lib/images";
+
+const background = responsiveImage("backgrounds/testimonial");
 
 const initials = (name) =>
   name
@@ -20,7 +23,7 @@ export default function Testimonials() {
       id="testimonials"
       background={
         <>
-          <img src={bg} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-20" />
+          <Img image={background} className="absolute inset-0 h-full w-full object-cover opacity-20" />
           <div className="absolute inset-0 bg-ink/80" />
         </>
       }

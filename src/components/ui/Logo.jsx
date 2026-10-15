@@ -1,4 +1,4 @@
-import logoMark from "../../assets/logo-mark.png";
+import logoMark from "../../assets/images/logo-mark-128w.webp";
 import { site } from "../../config/site";
 
 const sizes = {
@@ -14,6 +14,8 @@ export default function Logo({ size = "md", href = "#home" }) {
       <img
         src={logoMark}
         alt=""
+        width="64"
+        height="64"
         className={`${s.img} rounded-full border border-brand/40 object-cover`}
       />
       <span className="leading-tight">

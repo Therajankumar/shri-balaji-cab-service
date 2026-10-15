@@ -32,6 +32,22 @@ src/
 
 To change phone numbers, emails, vehicles, services, reviews etc. edit **`src/config/site.js`** or **`src/data/content.js`** – no component changes needed.
 
+## Images & performance
+
+Images are stored as small, compressed **WebP** files in several widths, so phones download a small version and big screens a sharp one.
+
+- `src/assets/images/` – site images, e.g. `fleet/dezire-480w.webp` and `fleet/dezire-768w.webp`.
+  Use them with `responsiveImage("fleet/dezire")` and the `<Img>` component (`src/components/ui/Img.jsx`).
+- `public/images/hero-car-*.webp` – the hero background, preloaded in `index.html` so it shows instantly.
+- `design/originals/` – the original full-size PNG artwork (not used by the site; keep for future edits).
+
+**Adding a new image:** export it as WebP in two widths (e.g. 480px and 768px wide, quality ~75),
+name the files `my-image-480w.webp` / `my-image-768w.webp`, put them in `src/assets/images/`, then use
+`responsiveImage("my-image")`. Avoid putting large PNG/JPG files directly in `src/`.
+
+The Inter font is self-hosted (`@fontsource-variable/inter`) instead of loaded from Google Fonts, and
+animations use Framer Motion's `LazyMotion` to keep the JavaScript small.
+
 ## Design system
 
 Colors are defined once as Tailwind theme tokens in `src/index.css` and used as classes:
