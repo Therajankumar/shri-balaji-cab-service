@@ -1,15 +1,18 @@
 import { FaArrowUp, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
-import footerBg from "../assets/footer-pattern.png";
 import { formatPhone, mailHref, site, telHref, whatsappHref } from "../config/site";
 import { navLinks, services } from "../data/content";
 import Button from "./ui/Button";
 import Logo from "./ui/Logo";
+import Img from "./ui/Img";
+import { responsiveImage } from "../lib/images";
+
+const background = responsiveImage("backgrounds/footer");
 
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-line bg-ink">
-      <img src={footerBg} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-10" />
+      <Img image={background} className="absolute inset-0 h-full w-full object-cover opacity-10" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/95 to-ink/90" />
 
       <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-20">

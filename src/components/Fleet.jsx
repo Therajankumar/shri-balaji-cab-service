@@ -12,6 +12,7 @@ import { useBooking } from "../context/booking-context";
 import { fleet } from "../data/content";
 import Button from "./ui/Button";
 import Card from "./ui/Card";
+import Img from "./ui/Img";
 import Reveal from "./ui/Reveal";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
@@ -39,10 +40,10 @@ export default function Fleet() {
           >
             <Card interactive className="group flex h-full flex-col overflow-hidden">
               <div className="relative aspect-[3/2] overflow-hidden bg-black">
-                <img
-                  src={car.image}
+                <Img
+                  image={car.image}
                   alt={car.name}
-                  loading="lazy"
+                  sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
                 <span className="absolute left-4 top-4 rounded-full border border-brand/30 bg-ink/80 px-3 py-1 text-xs font-semibold text-brand-light backdrop-blur">

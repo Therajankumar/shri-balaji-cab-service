@@ -1,13 +1,19 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
-import heroCar from "../assets/hero-car.png";
 import { site, telHref, whatsappHref } from "../config/site";
 import { BOOKING_FORM_ID } from "../context/BookingProvider";
 import { useBooking } from "../context/booking-context";
 import { heroHighlights } from "../data/content";
 import BookingForm from "./booking/BookingForm";
 import Button from "./ui/Button";
+import Img from "./ui/Img";
+
+// Served from public/images so index.html can preload it before the app loads.
+const heroImage = {
+  src: "/images/hero-car-1536w.webp",
+  srcSet: "/images/hero-car-640w.webp 640w, /images/hero-car-1024w.webp 1024w, /images/hero-car-1536w.webp 1536w",
+};
 
 export default function Hero() {
   const { prefill } = useBooking();
@@ -15,10 +21,9 @@ export default function Hero() {
   return (
     <section id="home" className="relative overflow-hidden bg-ink pb-20 pt-32 lg:min-h-screen lg:pt-36">
       {/* Background */}
-      <img
-        src={heroCar}
-        alt=""
-        fetchPriority="high"
+      <Img
+        image={heroImage}
+        priority
         className="absolute inset-0 h-full w-full object-cover object-[65%_center] opacity-50"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/50" />
@@ -26,7 +31,7 @@ export default function Hero() {
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
         {/* Copy */}
-        <motion.div
+        <m.div
           initial={{ x: -40, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -61,16 +66,16 @@ export default function Hero() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </m.div>
 
         {/* Booking */}
-        <motion.div
+        <m.div
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <BookingForm id={BOOKING_FORM_ID} prefill={prefill} />
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

@@ -9,16 +9,7 @@ import {
   FaUserShield,
 } from "react-icons/fa";
 
-import airport from "../assets/icons/airport.png";
-import local from "../assets/icons/local.png";
-import outstation from "../assets/icons/outstation.png";
-import reliable from "../assets/icons/reliable.png";
-
-import dezire from "../assets/fleet/dezire.png";
-import ertiga from "../assets/fleet/ertiga.png";
-import innova from "../assets/fleet/innova-crysta.png";
-import carens from "../assets/fleet/kia-carens.png";
-import traveller from "../assets/fleet/tempo-traveller.png";
+import { responsiveImage } from "../lib/images";
 
 export const navLinks = [
   { title: "Home", id: "home" },
@@ -53,25 +44,25 @@ export const services = [
   {
     title: "Airport Pickup & Drop",
     desc: "Reliable airport transfers with punctual pickups and comfortable rides.",
-    image: airport,
+    image: responsiveImage("services/airport"),
     tripType: "airport",
   },
   {
     title: "Local City Rides",
     desc: "Affordable local travel within Faridabad and Delhi NCR.",
-    image: local,
+    image: responsiveImage("services/local"),
     tripType: "local",
   },
   {
     title: "Outstation Trips",
     desc: "Enjoy hassle-free journeys across India with experienced drivers.",
-    image: outstation,
+    image: responsiveImage("services/outstation"),
     tripType: "outstation",
   },
   {
     title: "Safe & Reliable Service",
     desc: "Professional drivers, sanitized vehicles and 24×7 customer support.",
-    image: reliable,
+    image: responsiveImage("services/reliable"),
   },
 ];
 
@@ -81,35 +72,35 @@ export const fleet = [
     category: "Sedan",
     seats: "4 + 1 Seater",
     idealFor: "City rides & airport transfers",
-    image: dezire,
+    image: responsiveImage("fleet/dezire"),
   },
   {
     name: "Maruti Ertiga",
     category: "MUV",
     seats: "6 + 1 Seater",
     idealFor: "Small families & group travel",
-    image: ertiga,
+    image: responsiveImage("fleet/ertiga"),
   },
   {
     name: "Toyota Innova Crysta",
     category: "Premium MUV",
     seats: "6 + 1 Seater",
     idealFor: "Comfortable long-distance trips",
-    image: innova,
+    image: responsiveImage("fleet/innova-crysta"),
   },
   {
     name: "Kia Carens",
     category: "MUV",
     seats: "6 + 1 Seater",
     idealFor: "Family outings & outstation",
-    image: carens,
+    image: responsiveImage("fleet/kia-carens"),
   },
   {
     name: "Tempo Traveller",
     category: "Group Van",
     seats: "9 / 12 / 16 Seater",
     idealFor: "Large groups, weddings & tours",
-    image: traveller,
+    image: responsiveImage("fleet/tempo-traveller"),
   },
 ];
 

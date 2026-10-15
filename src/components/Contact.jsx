@@ -1,6 +1,5 @@
 import { FaClock, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 
-import bg from "../assets/contact-bg.png";
 import { formatPhone, mailHref, site, telHref } from "../config/site";
 import BookingForm from "./booking/BookingForm";
 import Card from "./ui/Card";
@@ -8,6 +7,10 @@ import IconBadge from "./ui/IconBadge";
 import Reveal from "./ui/Reveal";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
+import Img from "./ui/Img";
+import { responsiveImage } from "../lib/images";
+
+const background = responsiveImage("backgrounds/contact");
 
 const contactItems = [
   {
@@ -30,7 +33,7 @@ export default function Contact() {
       id="contact"
       background={
         <>
-          <img src={bg} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-20" />
+          <Img image={background} className="absolute inset-0 h-full w-full object-cover opacity-20" />
           <div className="absolute inset-0 bg-ink/85" />
         </>
       }

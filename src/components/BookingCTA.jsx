@@ -1,12 +1,15 @@
 import { FaCalendarCheck, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
-import bg from "../assets/contact-bg.png";
 import { site, telHref, whatsappHref } from "../config/site";
 import { useBooking } from "../context/booking-context";
 import { bookingHighlights } from "../data/content";
 import Button from "./ui/Button";
 import CheckItem from "./ui/CheckItem";
 import Reveal from "./ui/Reveal";
+import Img from "./ui/Img";
+import { responsiveImage } from "../lib/images";
+
+const background = responsiveImage("backgrounds/contact");
 
 export default function BookingCTA() {
   const { startBooking } = useBooking();
@@ -15,7 +18,7 @@ export default function BookingCTA() {
     <section className="bg-ink py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <Reveal className="relative overflow-hidden rounded-[2.5rem] border border-line">
-          <img src={bg} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+          <Img image={background} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/50" />
 
           <div className="relative max-w-3xl px-6 py-14 sm:px-12 lg:px-20 lg:py-20">

@@ -4,6 +4,7 @@ import { useBooking } from "../context/booking-context";
 import { services, tripTypes } from "../data/content";
 import Button from "./ui/Button";
 import Card from "./ui/Card";
+import Img from "./ui/Img";
 import Reveal from "./ui/Reveal";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
@@ -27,10 +28,10 @@ export default function Services() {
             <Reveal key={service.title} index={index} className="h-full">
               <Card interactive className="group flex h-full flex-col overflow-hidden">
                 <div className="aspect-[4/3] overflow-hidden bg-black">
-                  <img
-                    src={service.image}
+                  <Img
+                    image={service.image}
                     alt={service.title}
-                    loading="lazy"
+                    sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
                 </div>
