@@ -3,6 +3,7 @@
 /* Design tokens – use these (bg-ink, text-brand, border-line, ...) instead of raw hex values. */
 @theme {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora Variable", "Inter Variable", ui-sans-serif, sans-serif;
 
   --color-brand: oklch(79.5% 0.184 86.047);
   --color-brand-light: oklch(85.2% 0.199 91.936);
@@ -11,6 +12,15 @@
   --color-surface: #111827;
   --color-surface-raised: #1b2333;
   --color-line: rgb(255 255 255 / 0.1);
+  --color-paper: #f6f4ee;
+}
+
+/* Headings use the display font; body text uses Inter. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }
 
 html {

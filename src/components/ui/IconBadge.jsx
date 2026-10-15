@@ -1,13 +1,24 @@
 const sizes = {
   sm: "h-10 w-10 text-base",
   md: "h-14 w-14 text-xl",
-  lg: "h-20 w-20 text-3xl",
+  lg: "h-16 w-16 text-2xl",
 };
 
-export default function IconBadge({ icon: Icon, size = "md", className = "" }) {
+const variants = {
+  // Default: subtle tinted badge, so yellow stays reserved for main actions.
+  soft: "bg-brand/10 text-brand-light ring-1 ring-brand/25",
+  solid: "bg-brand text-ink",
+};
+
+const shapes = {
+  circle: "rounded-full",
+  square: "rounded-2xl",
+};
+
+export default function IconBadge({ icon: Icon, size = "md", variant = "soft", shape = "circle", className = "" }) {
   return (
     <div
-      className={`flex shrink-0 items-center justify-center rounded-full bg-brand text-ink ${sizes[size]} ${className}`}
+      className={`flex shrink-0 items-center justify-center ${sizes[size]} ${variants[variant]} ${shapes[shape]} ${className}`}
     >
       <Icon aria-hidden="true" />
     </div>

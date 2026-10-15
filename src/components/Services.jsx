@@ -4,7 +4,8 @@ import { useBooking } from "../context/booking-context";
 import { services, tripTypes } from "../data/content";
 import Button from "./ui/Button";
 import Card from "./ui/Card";
-import Img from "./ui/Img";
+import CheckItem from "./ui/CheckItem";
+import IconBadge from "./ui/IconBadge";
 import Reveal from "./ui/Reveal";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
@@ -26,24 +27,30 @@ export default function Services() {
 
           return (
             <Reveal key={service.title} index={index} className="h-full">
-              <Card interactive className="group flex h-full flex-col overflow-hidden">
-                <div className="aspect-[4/3] overflow-hidden bg-black">
-                  <Img
-                    image={service.image}
-                    alt={service.title}
-                    sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 100vw"
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
+              <Card interactive className="group relative flex h-full flex-col overflow-hidden p-7">
+                {/* Soft glow that brightens on hover */}
+                <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-brand/5 blur-2xl transition duration-500 group-hover:bg-brand/15" />
+
+                <div className="relative flex items-start justify-between">
+                  <IconBadge icon={service.icon} size="lg" shape="square" />
+                  <span className="font-display text-4xl font-bold text-white/5">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
 
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-xl font-bold text-white">{service.title}</h3>
-                  <p className="mt-3 flex-1 leading-7 text-gray-400">{service.desc}</p>
+                <h3 className="relative mt-6 text-xl font-bold text-white">{service.title}</h3>
+                <p className="relative mt-3 leading-7 text-gray-400">{service.desc}</p>
 
+                <ul className="relative mt-5 space-y-2.5 text-sm text-gray-300">
+                  {service.points.map((point) => (
+                    <CheckItem key={point}>{point}</CheckItem>
+                  ))}
+                </ul>
+
+                <div className="relative mt-auto pt-7">
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="sm"
-                    className="mt-6 self-start"
                     onClick={() => startBooking(trip ? { tripType: trip.id } : {})}
                   >
                     {trip ? `Book ${trip.label} Ride` : "Book a Ride"}

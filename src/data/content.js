@@ -44,25 +44,29 @@ export const services = [
   {
     title: "Airport Pickup & Drop",
     desc: "Reliable airport transfers with punctual pickups and comfortable rides.",
-    image: responsiveImage("services/airport"),
+    icon: FaPlaneDeparture,
+    points: ["Delhi IGI Airport pickup & drop", "Early-morning & late-night rides", "Punctual, on-time pickups"],
     tripType: "airport",
   },
   {
     title: "Local City Rides",
     desc: "Affordable local travel within Faridabad and Delhi NCR.",
-    image: responsiveImage("services/local"),
+    icon: FaCity,
+    points: ["Faridabad & across Delhi NCR", "Point-to-point city rides", "Office, events & daily travel"],
     tripType: "local",
   },
   {
     title: "Outstation Trips",
     desc: "Enjoy hassle-free journeys across India with experienced drivers.",
-    image: responsiveImage("services/outstation"),
+    icon: FaRoute,
+    points: ["All India Permit vehicles", "Weekend getaways & pilgrimages", "Experienced highway drivers"],
     tripType: "outstation",
   },
   {
     title: "Safe & Reliable Service",
     desc: "Professional drivers, sanitized vehicles and 24×7 customer support.",
-    image: responsiveImage("services/reliable"),
+    icon: FaShieldAlt,
+    points: ["Clean, sanitized vehicles", "Professional, courteous drivers", "24×7 customer support"],
   },
 ];
 

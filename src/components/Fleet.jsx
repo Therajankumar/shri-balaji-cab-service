@@ -63,7 +63,7 @@ export default function Fleet() {
                 </ul>
 
                 <div className="mt-auto flex gap-3 pt-6">
-                  <Button block icon={FaCalendarCheck} onClick={() => startBooking({ vehicle: car.name })}>
+                  <Button block variant="outline" icon={FaCalendarCheck} onClick={() => startBooking({ vehicle: car.name })}>
                     Book Now
                   </Button>
                   <Button href={telHref()} variant="ghost" size="icon" aria-label={`Call to book ${car.name}`}>
