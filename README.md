@@ -52,7 +52,7 @@ animations use Framer Motion's `LazyMotion` to keep the JavaScript small.
 
 Colors are defined once as Tailwind theme tokens in `src/index.css` and used as classes:
 `bg-ink` / `bg-ink-soft` (page backgrounds), `bg-surface` / `bg-surface-raised` (cards, inputs),
-`bg-brand` / `text-brand-light` (yellow accent), `border-line` (subtle borders), `bg-paper` (light sections).
+`bg-brand` / `text-brand-light` (yellow accent), `border-line` (subtle borders), `bg-paper` (light sections: Why Choose Us, the booking banner area and Testimonials alternate with the dark sections).
 
 Fonts: **Sora** for headings (`h1`–`h3`, or the `font-display` class) and **Inter** for body text.
 

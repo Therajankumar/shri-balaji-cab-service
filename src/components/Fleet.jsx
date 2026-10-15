@@ -52,7 +52,7 @@ export default function Fleet() {
               </div>
 
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-xl font-bold text-white">{car.name}</h3>
+                <h3 className="text-xl font-semibold text-white">{car.name}</h3>
                 <p className="mt-1 text-sm text-gray-400">{car.idealFor}</p>
 
                 <ul className="mt-5 grid grid-cols-2 gap-3 text-sm text-gray-300">

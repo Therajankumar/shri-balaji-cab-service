@@ -51,7 +51,7 @@ export default function Contact() {
               <Card className="flex gap-5 p-6">
                 <IconBadge icon={item.icon} />
                 <div className="min-w-0">
-                  <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                   {item.links ? (
                     item.links.map((link) => (
                       <a

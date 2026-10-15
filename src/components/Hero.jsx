@@ -27,7 +27,7 @@ export default function Hero() {
         priority
         className="absolute inset-0 h-full w-full object-cover object-[65%_center] opacity-50"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/50" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/40" />
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink to-transparent" />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
@@ -39,7 +39,7 @@ export default function Hero() {
         >
           <Badge pulse>{site.name}</Badge>
 
-          <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 text-4xl font-semibold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
             Reliable Cabs in <span className="text-brand-light">Faridabad</span>, Delhi NCR &amp; Across India
           </h1>
 

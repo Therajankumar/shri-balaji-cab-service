@@ -8,6 +8,8 @@ const variants = {
   // Default: subtle tinted badge, so yellow stays reserved for main actions.
   soft: "bg-brand/10 text-brand-light ring-1 ring-brand/25",
   solid: "bg-brand text-ink",
+  // For light sections.
+  tint: "bg-amber-100 text-amber-700 ring-1 ring-amber-200",
 };
 
 const shapes = {

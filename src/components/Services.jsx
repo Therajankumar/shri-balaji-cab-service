@@ -38,7 +38,7 @@ export default function Services() {
                   </span>
                 </div>
 
-                <h3 className="relative mt-6 text-xl font-bold text-white">{service.title}</h3>
+                <h3 className="relative mt-6 text-xl font-semibold text-white">{service.title}</h3>
                 <p className="relative mt-3 leading-7 text-gray-400">{service.desc}</p>
 
                 <ul className="relative mt-5 space-y-2.5 text-sm text-gray-300">
