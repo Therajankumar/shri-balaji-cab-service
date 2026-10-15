@@ -3,6 +3,7 @@ import { FaCalendarCheck, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { site, telHref, whatsappHref } from "../config/site";
 import { useBooking } from "../context/booking-context";
 import { bookingHighlights } from "../data/content";
+import Badge from "./ui/Badge";
 import Button from "./ui/Button";
 import CheckItem from "./ui/CheckItem";
 import Reveal from "./ui/Reveal";
@@ -22,9 +23,7 @@ export default function BookingCTA() {
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/50" />
 
           <div className="relative max-w-3xl px-6 py-14 sm:px-12 lg:px-20 lg:py-20">
-            <span className="inline-block rounded-full bg-brand px-4 py-1.5 text-sm font-semibold text-ink">
-              Premium Cab Booking
-            </span>
+            <Badge>Premium Cab Booking</Badge>
 
             <h2 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
               Book Your Ride <span className="text-brand-light">Today</span>

@@ -1,6 +1,7 @@
 const tones = {
   base: "bg-ink",
   alt: "bg-ink-soft",
+  light: "bg-paper text-ink",
 };
 
 export default function Section({

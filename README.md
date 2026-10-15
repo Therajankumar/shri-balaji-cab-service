@@ -52,18 +52,24 @@ animations use Framer Motion's `LazyMotion` to keep the JavaScript small.
 
 Colors are defined once as Tailwind theme tokens in `src/index.css` and used as classes:
 `bg-ink` / `bg-ink-soft` (page backgrounds), `bg-surface` / `bg-surface-raised` (cards, inputs),
-`bg-brand` / `text-brand-light` (yellow accent), `border-line` (subtle borders).
+`bg-brand` / `text-brand-light` (yellow accent), `border-line` (subtle borders), `bg-paper` (light sections).
+
+Fonts: **Sora** for headings (`h1`–`h3`, or the `font-display` class) and **Inter** for body text.
+
+Yellow is reserved for the main actions (Call Now, Book a Cab, Request Booking). Secondary buttons use the `outline` or `ghost` variant and icons use the soft `IconBadge` style, so the important buttons stand out.
 
 ### Reusable UI components (`src/components/ui`)
 
 | Component | Purpose |
 |---|---|
-| `Section` | Section wrapper with consistent padding, max width and `base`/`alt` background tone. |
-| `SectionHeading` | Eyebrow + title + description block used at the top of every section. |
+| `Section` | Section wrapper with consistent padding, max width and `base` / `alt` / `light` background tone. |
+| `SectionHeading` | Eyebrow + title + description block used at the top of every section (`tone="light"` on light sections). |
 | `Button` | Link or button with `primary`, `outline`, `whatsapp`, `ghost` variants and `sm`/`md`/`lg`/`icon` sizes. |
-| `Card` | Standard surface card; `interactive` adds the hover lift/highlight. |
+| `Card` | Standard surface card; `interactive` adds the hover lift/highlight, `tone="light"` for light sections. |
 | `Reveal` | Shared fade-up scroll animation (pass `index` for staggering). |
-| `IconBadge` | Round yellow icon badge. |
+| `IconBadge` | Icon badge: `soft` (default, tinted) or `solid` variant, `circle` or `square` shape. |
+| `Badge` | Small pill label shown above headings. |
+| `Img` | Responsive, lazy-loaded image (see "Images & performance"). |
 | `CheckItem` | Check-marked list item. |
 | `FormField` + `inputClass` | Labelled form field with error message and consistent input styling. |
 | `Logo` | Brand logo mark + name, used in Navbar and Footer. |
@@ -75,11 +81,11 @@ Colors are defined once as Tailwind theme tokens in `src/index.css` and used as 
 | `Navbar` | Fixed header that turns solid on scroll, highlights the active section, shows the phone number and a "Book a Cab" button; mobile menu. |
 | `Hero` | Headline, Call/WhatsApp buttons, highlights and the main **booking form** (`#book`). |
 | `HeroStats` | Animated stat cards. |
-| `Services` | Service cards; "Book … Ride" pre-selects the trip type in the booking form. |
+| `Services` | Icon-based service cards with key points; "Book … Ride" pre-selects the trip type in the booking form. |
 | `Fleet` | Vehicle cards with category, seats and specs; "Book Now" pre-selects the vehicle in the booking form. |
 | `WhyChooseUs` | Feature highlights. |
 | `BookingCTA` | Call-to-action banner with Book Online / Call / WhatsApp. |
-| `Testimonials` | Customer review cards. |
+| `Testimonials` | Customer review cards on a light background (breaks up the dark page). |
 | `Contact` | Clickable contact details and the full inquiry form (adds email + notes). |
 | `Footer` | Logo, quick links, services, contact info, credits, back-to-top. |
 | `FloatingCall` | Floating WhatsApp and Call buttons. |

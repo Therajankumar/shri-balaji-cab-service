@@ -6,6 +6,7 @@ import { BOOKING_FORM_ID } from "../context/BookingProvider";
 import { useBooking } from "../context/booking-context";
 import { heroHighlights } from "../data/content";
 import BookingForm from "./booking/BookingForm";
+import Badge from "./ui/Badge";
 import Button from "./ui/Button";
 import Img from "./ui/Img";
 
@@ -36,10 +37,7 @@ export default function Hero() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand/40 bg-brand/10 px-4 py-1.5 text-sm font-semibold text-brand-light">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-brand" />
-            {site.name}
-          </span>
+          <Badge pulse>{site.name}</Badge>
 
           <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl lg:text-6xl">
             Reliable Cabs in <span className="text-brand-light">Faridabad</span>, Delhi NCR &amp; Across India

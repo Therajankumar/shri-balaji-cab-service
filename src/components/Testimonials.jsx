@@ -5,10 +5,6 @@ import Card from "./ui/Card";
 import Reveal from "./ui/Reveal";
 import Section from "./ui/Section";
 import SectionHeading from "./ui/SectionHeading";
-import Img from "./ui/Img";
-import { responsiveImage } from "../lib/images";
-
-const background = responsiveImage("backgrounds/testimonial");
 
 const initials = (name) =>
   name
@@ -19,16 +15,9 @@ const initials = (name) =>
 
 export default function Testimonials() {
   return (
-    <Section
-      id="testimonials"
-      background={
-        <>
-          <Img image={background} className="absolute inset-0 h-full w-full object-cover opacity-20" />
-          <div className="absolute inset-0 bg-ink/80" />
-        </>
-      }
-    >
+    <Section id="testimonials" tone="light">
       <SectionHeading
+        tone="light"
         eyebrow="Testimonials"
         title="What Our Customers Say"
         description="Customer satisfaction is our priority. Here are a few words from travellers who chose us."
@@ -37,25 +26,25 @@ export default function Testimonials() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {testimonials.map((item, index) => (
           <Reveal key={item.name} index={index} className="h-full">
-            <Card interactive className="flex h-full flex-col bg-surface/70 p-8 backdrop-blur-md">
+            <Card interactive tone="light" className="flex h-full flex-col p-8">
               <div className="flex items-center justify-between">
-                <div className="flex gap-1 text-brand-light" aria-label="5 out of 5 stars">
+                <div className="flex gap-1 text-amber-500" aria-label="5 out of 5 stars">
                   {Array.from({ length: 5 }, (_, i) => (
                     <FaStar key={i} aria-hidden="true" />
                   ))}
                 </div>
-                <FaQuoteLeft className="text-3xl text-brand/30" aria-hidden="true" />
+                <FaQuoteLeft className="text-3xl text-slate-200" aria-hidden="true" />
               </div>
 
-              <blockquote className="mt-6 flex-1 leading-8 text-gray-300">“{item.review}”</blockquote>
+              <blockquote className="mt-6 flex-1 leading-8 text-slate-700">“{item.review}”</blockquote>
 
-              <div className="mt-8 flex items-center gap-4 border-t border-line pt-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand/15 font-bold text-brand-light ring-1 ring-brand/40">
+              <div className="mt-8 flex items-center gap-4 border-t border-black/5 pt-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-ink font-display font-bold text-brand-light">
                   {initials(item.name)}
                 </div>
                 <div>
-                  <p className="font-bold text-white">{item.name}</p>
-                  <p className="text-sm text-gray-400">{item.city}</p>
+                  <p className="font-bold text-ink">{item.name}</p>
+                  <p className="text-sm text-slate-500">{item.city}</p>
                 </div>
               </div>
             </Card>
