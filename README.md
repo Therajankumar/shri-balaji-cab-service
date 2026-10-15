@@ -12,6 +12,19 @@ npm run build                # production build in dist/
 npm run lint
 ```
 
+## Testing
+
+```bash
+npm test               # unit tests (Vitest + React Testing Library)
+npm run test:coverage  # unit tests with a coverage table
+npm run test:e2e       # functional tests in a real browser (Playwright, desktop + mobile)
+npm run test:all       # both
+```
+
+- Unit tests live next to the code they test (`*.test.js` / `*.test.jsx`).
+- Functional tests are in `e2e/`. They build the site twice: a normal build, and one with test EmailJS keys.
+- The latest results are in [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md).
+
 ## Project structure
 
 ```

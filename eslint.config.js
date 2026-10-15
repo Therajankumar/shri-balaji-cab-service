@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'dist-e2e', 'dist-e2e-email', 'coverage', 'test-results', 'playwright-report']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -17,5 +17,10 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+  },
+  {
+    // Config files and end-to-end tests run in Node, not the browser.
+    files: ['*.config.js', 'e2e/**/*.js'],
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
   },
 ])
